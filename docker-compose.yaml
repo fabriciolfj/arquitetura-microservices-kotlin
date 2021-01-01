@@ -9,3 +9,15 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
     ports:
       - 3306:3306
+
+  mongodb:
+    image: mongo:3.6.9
+    mem_limit: 350m
+    ports:
+    - "27017:27017"
+    command: mongod --smallfiles
+    healthcheck:
+      test: "mongo --eval 'db.stats().ok'"
+      interval: 10s
+      timeout: 5s
+      retries: 10
