@@ -1,5 +1,6 @@
 package com.fabriciolfj.github.limites.domain.service
 
+import com.fabriciolfj.github.limites.api.dto.LimiteRequest
 import com.fabriciolfj.github.limites.api.dto.LimiteResponse
 import com.fabriciolfj.github.limites.api.mapper.LimiteMapper
 import com.fabriciolfj.github.limites.domain.document.Limite
@@ -12,17 +13,17 @@ import java.lang.RuntimeException
 class LimiteService {
 
     @Autowired
-    lateinit var limiteRepository: LimiteRepository
+    private lateinit var limiteRepository: LimiteRepository
 
     @Autowired
-    lateinit var limiteMapper: LimiteMapper
+    private lateinit var limiteMapper: LimiteMapper
 
-    fun create(limite: Limite) {
-        limiteRepository.save(limite)
+    fun create(limite: LimiteRequest) {
+        limiteRepository.save(limiteMapper.toEntity(limite))
     }
 
     fun findByLimite(conta: String): LimiteResponse {
-        return limiteRepository.findByConta(conta)
+        return limiteRepository.findByContaComDigito(conta)
                 .map { limiteMapper.toResponse(it) }
                 .orElseThrow { RuntimeException("Limite nao encontrado para conta $conta") }
 

@@ -27,8 +27,8 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
-	implementation("org.springframework.kafka:spring-kafka")
+	//implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
+	//implementation("org.springframework.kafka:spring-kafka")
 	implementation("org.mapstruct:mapstruct-jdk8:1.3.1.Final")
 	kapt("org.mapstruct:mapstruct-processor:1.3.1.Final")
 
