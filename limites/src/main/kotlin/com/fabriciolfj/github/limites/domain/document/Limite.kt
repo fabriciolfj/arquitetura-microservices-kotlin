@@ -10,4 +10,7 @@ data class Limite (@Id val id: String,
                    val contaComDigito: String,
                    val valorDiario: BigDecimal,
                    val quantidadeSaqueDiario: Int,
-                   @DBRef val uso: List<LimiteUsoDiario>)
+                   @DBRef val uso: List<LimiteUsoDiario>) {
+
+    constructor() : this("0", "0", BigDecimal.ZERO, 0, emptyList())
+}
