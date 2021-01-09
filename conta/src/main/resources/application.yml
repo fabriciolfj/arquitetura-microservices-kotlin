@@ -9,6 +9,19 @@ spring:
     url: jdbc:mysql://localhost:3306/conta
     username: root
     password: root
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      retries: 3
+      client-id: ${spring.application.name}
+      transaction-id-prefix: ted
+      properties:
+        enable:
+          idempotence: true
+        transactional:
+          id: ted
   flyway:
     locations:
       - classpath:db/migration
@@ -18,3 +31,5 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL57Dialect
     show-sql: true
+
+app.topic: limite-topic

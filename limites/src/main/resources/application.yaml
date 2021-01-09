@@ -1,10 +1,24 @@
 spring:
+  application:
+    name: limite-service
   data:
     mongodb:
       host: localhost
       port: 27017
-
-
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: ${spring.application.name}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    listener:
+      missing-topics-fatal: false
+      ack-mode: MANUAL_IMMEDIATE
 logging:
   level:
     org.springframework.web: DEBUG
+
+app:
+  topic: limite-topic
