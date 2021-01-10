@@ -9,7 +9,7 @@ import java.math.BigDecimal
 data class Limite (@Id var id: String,
                    var contaComDigito: String,
                    var valorDiario: BigDecimal,
-                   var quantidadeSaqueDiario: Int,
+                   var quantidadeSaqueMensal: Int,
                    @DBRef var uso: List<LimiteUsoDiario>) {
 
     constructor() : this("0", "0", BigDecimal.ZERO, 0, emptyList())
