@@ -1,6 +1,7 @@
 set foreign_key_checks = 0;
 
 delete from conta;
+delete from extrato;
 delete from banco;
 
 insert into banco(id, code, descricao) values (1, '241', 'Bradesco');

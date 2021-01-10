@@ -14,6 +14,12 @@ data class Extrato (
                     @ManyToOne
                     val conta: Conta?,
                     val data: LocalDateTime,
+                    @Enumerated(EnumType.STRING)
+                    val operacao: TipoTransacao?,
                     val saldo: BigDecimal) {
-    constructor() : this(0, null, LocalDateTime.now(), BigDecimal.ZERO)
+    constructor() : this(0, null, LocalDateTime.now(), null, BigDecimal.ZERO)
+
+    override fun toString(): String {
+        return "id - $id - conta: ${conta!!.numero} - saldo: $saldo";
+    }
 }

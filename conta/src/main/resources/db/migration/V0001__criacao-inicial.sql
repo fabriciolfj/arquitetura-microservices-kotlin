@@ -11,6 +11,7 @@ id bigint not null auto_increment,
 numero varchar(10) not null,
 banco_id bigint not null,
 cliente varchar(14),
+unique key unique_numero (numero),
 primary key (id),
 foreign key (banco_id) references banco (id)
 )engine=InnoDB default charset=utf8;
@@ -18,8 +19,9 @@ foreign key (banco_id) references banco (id)
 create table extrato (
 id bigint not null auto_increment,
 conta_id bigint not null,
-data date,
+data datetime,
 saldo numeric(15,4),
+operacao varchar(10) not null,
 foreign key (conta_id) references conta(id),
 primary key (id)
 )engine=InnoDB default charset=utf8;

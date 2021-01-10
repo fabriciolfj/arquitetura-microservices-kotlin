@@ -8,7 +8,7 @@ data class Conta(@Id
                  @Column(name = "id")
                  @GeneratedValue(strategy = GenerationType.IDENTITY)
                  val id: Long?,
-                 @Column(name = "numero")
+                 @Column(name = "numero", unique = true)
                  val numero: String,
                  @JoinColumn(name = "banco_id")
                  @ManyToOne
