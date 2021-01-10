@@ -17,7 +17,7 @@ class LimiteController {
     @ResponseStatus(HttpStatus.CREATED)
     @GetMapping("/{conta}")
     fun findByLimite(@PathVariable("conta") conta: String ): LimiteResponse {
-        return limiteService.findByLimite(conta)
+        return limiteService.findByLimiteResponse(conta)
     }
 
     @PostMapping

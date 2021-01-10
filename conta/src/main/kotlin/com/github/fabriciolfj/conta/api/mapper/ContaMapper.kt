@@ -13,10 +13,10 @@ class ContaMapper {
     private var logger = LoggerFactory.getLogger(ContaMapper::class.java)
 
     fun toEntity(request: ContaRequest) : Conta {
-        return Conta(null, request.numero, request.digito, null, request.cliente, emptyList())
+        return Conta(null, request.numero,null, request.cliente, emptyList())
     }
 
     fun toResponse(conta: Conta) : ContaResponse {
-        return ContaResponse(conta.numero, conta.digito, conta.cliente, conta.banco!!.code)
+        return ContaResponse(conta.numero, conta.cliente, conta.banco!!.code)
     }
 }

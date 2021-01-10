@@ -1,6 +1,13 @@
+server:
+  port: 8081
 spring:
   application:
     name: limite-service
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
   data:
     mongodb:
       host: localhost

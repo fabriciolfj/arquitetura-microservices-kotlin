@@ -1,8 +1,10 @@
 package com.github.fabriciolfj.conta.api.mapper.request
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.math.BigDecimal
 
-data class ContaRequest(val numero: String, val digito: Int, val cliente: String, val saldo: BigDecimal) {
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class ContaRequest(val numero: String, val cliente: String, val saldo: BigDecimal) {
 
-    constructor() : this("", 0, "", BigDecimal.ZERO)
+    constructor() : this("", "", BigDecimal.ZERO)
 }

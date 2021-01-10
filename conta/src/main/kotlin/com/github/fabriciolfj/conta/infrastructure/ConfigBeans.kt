@@ -28,4 +28,5 @@ class ConfigBeans {
     ): ChainedKafkaTransactionManager<Any?, Any?>? {
         return ChainedKafkaTransactionManager(kafkaTransactionManager, transactionManager)
     }
+
 }

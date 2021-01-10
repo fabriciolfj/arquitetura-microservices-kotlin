@@ -9,7 +9,6 @@ UNIQUE(code)
 create table conta(
 id bigint not null auto_increment,
 numero varchar(10) not null,
-digito int not null,
 banco_id bigint not null,
 cliente varchar(14),
 primary key (id),

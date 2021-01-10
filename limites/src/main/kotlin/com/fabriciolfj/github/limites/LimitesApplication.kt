@@ -2,10 +2,12 @@ package com.fabriciolfj.github.limites
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories
 
 @SpringBootApplication
-@EnableMongoRepositories(basePackages = arrayOf("com.fabriciolfj.github.limites.domain.repository"))
+@ComponentScan("com.fabriciolfj.github.limites")
+@EnableMongoRepositories(basePackages = ["com.fabriciolfj.github.limites.domain.repository"])
 class LimitesApplication
 
 fun main(args: Array<String>) {

@@ -6,4 +6,7 @@ import java.math.BigDecimal
 import java.time.LocalDate
 
 @Document(collection = "limiteUsoDiario")
-data class LimiteUsoDiario(@Id val id: String, val limite: Limite, val saque: Int, val valor: BigDecimal, val data: LocalDate)
+data class LimiteUsoDiario(@Id val id: String?, val limite: Limite?, val transacao: String, val valor: BigDecimal, val data: LocalDate) {
+
+    constructor(): this("", null,"", BigDecimal.ZERO, LocalDate.now())
+}
