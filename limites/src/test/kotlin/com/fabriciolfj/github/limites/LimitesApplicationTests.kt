@@ -6,8 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest
 //@SpringBootTest
 class LimitesApplicationTests {
 
-	//@Test
+	@Test
 	fun contextLoads() {
+		var a = null
+		a ?: print("teste")
 	}
 
 }

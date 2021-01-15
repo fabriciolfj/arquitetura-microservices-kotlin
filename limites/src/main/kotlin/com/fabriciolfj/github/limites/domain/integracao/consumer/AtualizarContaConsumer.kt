@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
+import java.util.concurrent.CompletableFuture
 
 @Component
 class AtualizarContaConsumer {
@@ -25,10 +26,15 @@ class AtualizarContaConsumer {
 
     @KafkaListener(topics = ["\${app.topic}"], properties = ["max.poll.interval.ms:30000"])
     fun consumer(msg: String) {
-        var atualizarContaDTO = mapper.readValue(msg, AtualizarContaDTO::class.java)
-        logger.info("Criando limite: $atualizarContaDTO")
-
-        limiteService.create(atualizarContaDTO)
-        atualizarCache.process(atualizarContaDTO)
+        CompletableFuture.supplyAsync {
+            var atualizarContaDTO = mapper.readValue(msg, AtualizarContaDTO::class.java)
+            logger.info("Criando limite: $atualizarContaDTO")
+            limiteService.create(atualizarContaDTO)
+            atualizarCache.process(atualizarContaDTO)
+        }.whenCompleteAsync { unit: Unit, throwable: Throwable? ->
+            if (throwable != null) {
+                logger.info("Falha ao executar a rotina. Detalhes: ${throwable.message}")
+            }
+        }
     }
 }
