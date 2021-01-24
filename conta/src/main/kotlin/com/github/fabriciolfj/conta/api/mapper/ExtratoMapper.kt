@@ -10,10 +10,10 @@ import java.time.LocalDateTime
 @Component
 class ExtratoMapper {
 
-    fun toEntity(saldo: BigDecimal, conta: Conta) = Extrato(null, conta, LocalDateTime.now(), TipoTransacao.ABERTURA, saldo)
+    fun toEntity(saldo: BigDecimal, conta: Conta) = Extrato(null, conta, LocalDateTime.now(), TipoTransacao.ABERTURA, saldo, saldo)
 
-    fun toEntity(extratoOld: Extrato, debito : BigDecimal, operacao: TipoTransacao) : Extrato {
-        var newValue = extratoOld.saldo.subtract(debito)
-        return Extrato(null, extratoOld.conta, LocalDateTime.now(), operacao, newValue)
+    fun toEntity(extratoOld: Extrato, valor : BigDecimal, operacao: TipoTransacao) : Extrato {
+        var newValue = extratoOld.saldo.subtract(valor)
+        return Extrato(null, extratoOld.conta, LocalDateTime.now(), operacao, valor, newValue)
     }
 }

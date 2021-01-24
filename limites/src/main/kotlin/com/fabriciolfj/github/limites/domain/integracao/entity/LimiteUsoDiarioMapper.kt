@@ -11,5 +11,5 @@ import org.mapstruct.Mapper
 @DecoratedWith(LimiteUsoDiarioMapperDecorated::class)
 interface LimiteUsoDiarioMapper {
 
-    fun toEntity(usoContaDTO: UsoContaDTO, limite: Limite) : LimiteUsoDiario
+    fun toEntity(usoContaDTO: UsoContaDTO, limite: String) : LimiteUsoDiario
 }

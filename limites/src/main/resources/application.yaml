@@ -27,5 +27,6 @@ logging:
   level:
     org.springframework.web: DEBUG
 
-app:
-  topic: limite-topic
+app.topic: limite-topic
+app.topic.uso: limite-uso
+app.topic.taxa: limite-taxa

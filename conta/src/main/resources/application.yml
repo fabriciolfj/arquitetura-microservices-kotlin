@@ -14,6 +14,15 @@ spring:
     password: root
   kafka:
     bootstrap-servers: localhost:9092
+    consumer:
+      group-id: ${spring.application.name}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    listener:
+      missing-topics-fatal: false
+      ack-mode: MANUAL_IMMEDIATE
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -36,3 +45,5 @@ spring:
     show-sql: true
 
 app.topic: limite-topic
+app.topic.uso: limite-uso
+app.topic.taxa: limite-taxa

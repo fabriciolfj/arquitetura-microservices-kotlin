@@ -1,5 +1,6 @@
 package com.fabriciolfj.github.limites.domain.integracao.cache
 
+import com.fabriciolfj.github.limites.domain.integracao.cache.dto.LimiteCacheDTO
 import com.fabriciolfj.github.limites.domain.integracao.cache.dto.LimiteCacheMapper
 import com.fabriciolfj.github.limites.domain.integracao.consumer.dto.AtualizarContaDTO
 import com.fabriciolfj.github.limites.infrastructure.ConfigCache.Companion.CACHE_NAME
@@ -28,7 +29,11 @@ class AtualizarCache {
     fun process(atualizarContaDTO: AtualizarContaDTO) {
         logger.info("Atualizando o cache.")
         var limiteCacheDTO = limiteCacheMapper.toDto(atualizarContaDTO)
+        processoLimiteDiario(limiteCacheDTO, atualizarContaDTO.conta)
+    }
+
+    private fun processoLimiteDiario(limiteCacheDTO: LimiteCacheDTO, conta: String) {
         var json = mapper.writeValueAsString(limiteCacheDTO)
-        cache.put(atualizarContaDTO.conta, json)
+        cache.put(conta, limiteCacheDTO)
     }
 }

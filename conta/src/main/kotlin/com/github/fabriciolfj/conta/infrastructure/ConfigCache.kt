@@ -1,6 +1,6 @@
 package com.github.fabriciolfj.conta.infrastructure
 
-import com.github.fabriciolfj.conta.domain.integracao.dto.LimiteCacheDTO
+import com.github.fabriciolfj.conta.domain.integracao.producer.dto.LimiteCacheDTO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties

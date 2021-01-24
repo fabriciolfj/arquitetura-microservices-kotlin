@@ -57,7 +57,7 @@ class ConfigCache {
             )
             .serializeValuesWith(
                 RedisSerializationContext.SerializationPair
-                    .fromSerializer(Jackson2JsonRedisSerializer(LimiteCacheDTO::class.java))
+                    .fromSerializer(Jackson2JsonRedisSerializer(String::class.java))
             )
     }
 

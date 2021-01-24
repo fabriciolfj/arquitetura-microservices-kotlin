@@ -16,8 +16,9 @@ data class Extrato (
                     val data: LocalDateTime,
                     @Enumerated(EnumType.STRING)
                     val operacao: TipoTransacao?,
+                    val valor: BigDecimal,
                     val saldo: BigDecimal) {
-    constructor() : this(0, null, LocalDateTime.now(), null, BigDecimal.ZERO)
+    constructor() : this(0, null, LocalDateTime.now(), null, BigDecimal.ZERO, BigDecimal.ZERO)
 
     override fun toString(): String {
         return "id - $id - conta: ${conta!!.numero} - saldo: $saldo";
