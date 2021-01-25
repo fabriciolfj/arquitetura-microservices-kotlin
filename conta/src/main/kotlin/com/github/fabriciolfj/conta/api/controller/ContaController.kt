@@ -23,6 +23,6 @@ class ContaController {
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     fun findAll() : List<ContaResponse> {
-        return contaService.findAll();
+        return contaService.findAllContaResponse();
     }
 }

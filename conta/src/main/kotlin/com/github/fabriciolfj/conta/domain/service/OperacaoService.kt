@@ -3,6 +3,7 @@ package com.github.fabriciolfj.conta.domain.service
 import com.github.fabriciolfj.conta.api.exceptions.ExtratoNotFoundException
 import com.github.fabriciolfj.conta.api.mapper.ExtratoMapper
 import com.github.fabriciolfj.conta.api.mapper.request.OperacaoRequest
+import com.github.fabriciolfj.conta.domain.entity.Conta
 import com.github.fabriciolfj.conta.domain.entity.TipoTransacao
 import com.github.fabriciolfj.conta.domain.integracao.producer.dto.UsoContaDTO
 import com.github.fabriciolfj.conta.domain.repository.ExtratoRepository
@@ -10,10 +11,8 @@ import com.github.fabriciolfj.conta.domain.transactionfactory.Transacao
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
-import kotlin.math.log
 
 @Service
 class OperacaoService {
@@ -32,7 +31,7 @@ class OperacaoService {
     @Transactional("chainedKafkaTransactionManager")
     fun executarOperacao(request: OperacaoRequest, conta: String) {
         var tipo = TipoTransacao.toEnum(request.tipo)
-        updateExtrato(conta, request.valor, tipo).map {
+        getUltimoExtratoECriaNovo(conta, request.valor, tipo).map {
                 val usoContaDTO = UsoContaDTO(conta, tipo.descricao, request.valor, it.data.toString())
                 executarTransacoes(usoContaDTO)
                 extratoRepository.save(it)
@@ -41,15 +40,25 @@ class OperacaoService {
     }
 
     @Transactional("chainedKafkaTransactionManager")
+    fun updateChequeEspecial(conta: Conta, valor: BigDecimal) {
+        extratoRepository.findByContaAndOperacao(conta, TipoTransacao.CHEQUEESPECIAL)
+            .map {
+                it.valor = valor
+            }.orElseGet {
+                updateValorUltimoExtrato(conta.numero, valor, TipoTransacao.CHEQUEESPECIAL)
+            }
+    }
+
+    @Transactional("chainedKafkaTransactionManager")
     fun updateValorUltimoExtrato(conta: String, valor: BigDecimal, tipo: TipoTransacao) {
-        updateExtrato(conta, valor, tipo)
+        getUltimoExtratoECriaNovo(conta, valor, tipo)
             .map {
                 logger.info("Atualizando o extrato: $it")
                 extratoRepository.save(it)
             }
     }
 
-    private fun updateExtrato(conta: String, valor: BigDecimal, tipo: TipoTransacao) =
+    private fun getUltimoExtratoECriaNovo(conta: String, valor: BigDecimal, tipo: TipoTransacao) =
         extratoRepository.findByLastExtrato(conta)
             .map {
                 logger.info("Ultimo extrato: $it")

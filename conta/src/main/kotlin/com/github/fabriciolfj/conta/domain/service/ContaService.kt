@@ -5,6 +5,7 @@ import com.github.fabriciolfj.conta.api.mapper.request.ContaRequest
 import com.github.fabriciolfj.conta.api.mapper.response.ContaResponse
 import com.github.fabriciolfj.conta.api.mapper.ContaMapper
 import com.github.fabriciolfj.conta.api.mapper.ExtratoMapper
+import com.github.fabriciolfj.conta.domain.entity.Conta
 import com.github.fabriciolfj.conta.domain.repository.BancoRepository
 import com.github.fabriciolfj.conta.domain.repository.ContaRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,10 +28,14 @@ class ContaService {
     @Autowired
     private lateinit var extratoMapper: ExtratoMapper
 
-    fun findAll(): List<ContaResponse> {
-        return contaRepository.findAll()
+    fun findAllContaResponse(): List<ContaResponse> {
+        return this.findAll()
             .map { contaMapper.toResponse(it) }
             .toList()
+    }
+
+    fun findAll(): List<Conta> {
+        return contaRepository.findAll();
     }
 
     @Transactional("chainedKafkaTransactionManager", propagation = Propagation.REQUIRED)

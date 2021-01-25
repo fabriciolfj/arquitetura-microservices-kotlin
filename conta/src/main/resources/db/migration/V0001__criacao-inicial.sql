@@ -21,7 +21,7 @@ id bigint not null auto_increment,
 conta_id bigint not null,
 data datetime,
 saldo numeric(15,4),
-operacao varchar(10) not null,
+operacao varchar(50) not null,
 valor numeric(15,4),
 foreign key (conta_id) references conta(id),
 primary key (id)

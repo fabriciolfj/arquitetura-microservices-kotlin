@@ -1,6 +1,8 @@
 package com.github.fabriciolfj.conta.domain.repository
 
+import com.github.fabriciolfj.conta.domain.entity.Conta
 import com.github.fabriciolfj.conta.domain.entity.Extrato
+import com.github.fabriciolfj.conta.domain.entity.TipoTransacao
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import java.util.*
@@ -12,4 +14,6 @@ interface ExtratoRepository : JpaRepository<Extrato, Long> {
             "order by data desc \n" +
             "limit 1")
     fun findByLastExtrato(conta: String): Optional<Extrato>
+
+    fun findByContaAndOperacao(conta: Conta, tipoTransacao: TipoTransacao) : Optional<Extrato>
 }

@@ -1,6 +1,5 @@
 package com.fabriciolfj.github.limites.domain.integracao.entity
 
-import com.fabriciolfj.github.limites.domain.document.Limite
 import com.fabriciolfj.github.limites.domain.document.LimiteUsoDiario
 import com.fabriciolfj.github.limites.domain.integracao.consumer.dto.UsoContaDTO
 import com.fabriciolfj.github.limites.domain.integracao.entity.impl.LimiteUsoDiarioMapperDecorated

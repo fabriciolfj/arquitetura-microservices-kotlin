@@ -1,4 +1,4 @@
-package com.fabriciolfj.github.limites.domain.service
+package com.fabriciolfj.github.limites.domain.service.limite
 
 import com.fabriciolfj.github.limites.api.dto.LimiteRequest
 import com.fabriciolfj.github.limites.api.dto.LimiteResponse

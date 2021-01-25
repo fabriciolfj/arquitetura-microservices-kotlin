@@ -4,7 +4,7 @@ import java.lang.IllegalArgumentException
 
 enum class TipoTransacao(val descricao: String) {
 
-    SAQUE("saque"), OUTROS("outros"), ABERTURA("abertura");
+    SAQUE("saque"), OUTROS("outros"), ABERTURA("abertura"), CHEQUEESPECIAL("chequeespecial");
 
     companion object {
         fun toEnum(value: String): TipoTransacao {
