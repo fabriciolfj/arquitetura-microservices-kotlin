@@ -19,8 +19,8 @@ class CobrarTaxaService {
     private lateinit var cobraTaxaProducer: CobraTaxaProducer
 
     fun execute(limite: Limite, usoContaDTO: UsoContaDTO, usos: List<LimiteUsoDiario>) {
-        if (regras.filter { it.execute(usos, usoContaDTO.valor, limite) }.isNotEmpty()) cobraTaxaProducer.process(
-            TaxaDTO(BigDecimal.valueOf(1.78), usoContaDTO.conta)
+        if (regras.filter { it.execute(usos, usoContaDTO.valor, limite) }.isNotEmpty())
+            cobraTaxaProducer.process(TaxaDTO(BigDecimal.valueOf(1.78), usoContaDTO.conta)
         )
     }
 }

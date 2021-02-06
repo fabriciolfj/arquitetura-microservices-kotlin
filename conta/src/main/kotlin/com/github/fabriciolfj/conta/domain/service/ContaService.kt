@@ -1,10 +1,12 @@
 package com.github.fabriciolfj.conta.domain.service
 
 import com.github.fabriciolfj.conta.api.exceptions.BancoNotFoundException
+import com.github.fabriciolfj.conta.api.exceptions.ContaNotFoundException
 import com.github.fabriciolfj.conta.api.mapper.request.ContaRequest
 import com.github.fabriciolfj.conta.api.mapper.response.ContaResponse
 import com.github.fabriciolfj.conta.api.mapper.ContaMapper
 import com.github.fabriciolfj.conta.api.mapper.ExtratoMapper
+import com.github.fabriciolfj.conta.api.mapper.request.LimiteRequest
 import com.github.fabriciolfj.conta.domain.entity.Conta
 import com.github.fabriciolfj.conta.domain.repository.BancoRepository
 import com.github.fabriciolfj.conta.domain.repository.ContaRepository
@@ -28,6 +30,9 @@ class ContaService {
     @Autowired
     private lateinit var extratoMapper: ExtratoMapper
 
+    @Autowired
+    private lateinit var bancoService: BancoService
+
     fun findAllContaResponse(): List<ContaResponse> {
         return this.findAll()
             .map { contaMapper.toResponse(it) }
@@ -38,9 +43,14 @@ class ContaService {
         return contaRepository.findAll();
     }
 
+    fun findByConta(conta: String) : Conta {
+        return contaRepository.findByNumero(conta)
+            .orElseThrow { throw ContaNotFoundException("Conta não encontrada: $conta")}
+    }
+
     @Transactional("chainedKafkaTransactionManager", propagation = Propagation.REQUIRED)
     fun create(request: ContaRequest, banco: String) {
-        var entity = bancoRepository.findByCode(banco) ?: throw BancoNotFoundException("Banco não localizado : $banco")
+        var entity = bancoService.getBanco(banco)
         contaMapper.toEntity(request)
             .apply {
                 this.banco = entity

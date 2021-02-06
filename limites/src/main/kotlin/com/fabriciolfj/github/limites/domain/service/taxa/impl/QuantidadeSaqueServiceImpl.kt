@@ -11,14 +11,10 @@ import java.time.LocalDate
 @Service
 class QuantidadeSaqueServiceImpl : RegraTaxaService {
 
-    private val logger = LoggerFactory.getLogger(QuantidadeSaqueServiceImpl::class.java)
-
     override fun execute(usos: List<LimiteUsoDiario>, valor: BigDecimal, limite: Limite): Boolean {
         var totalUso = usos.filter { it.data.isEqual(LocalDate.now()) }
             .count() + 1
 
-        var result = totalUso > limite.quantidadeSaqueMensal
-        logger.info("Ultrapassou o limite de uso de quantidade saque: $result, total uso: $totalUso, limite: ${limite.quantidadeSaqueMensal}")
-        return result
+        return totalUso > limite.quantidadeSaqueMensal
     }
 }
