@@ -6,14 +6,14 @@ spring:
   cache:
     type: redis
   redis:
-    host: localhost
+    host: 192.168.0.108
     port: 6379
   data:
     mongodb:
-      host: localhost
+      host: 192.168.0.108
       port: 27017
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 192.168.0.108:9092
     consumer:
       group-id: ${spring.application.name}
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -30,18 +30,3 @@ logging:
 app.topic: limite-topic
 app.topic.uso: limite-uso
 app.topic.taxa: limite-taxa
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  metrics:
-    export:
-      prometheus:
-        enabled: true
-  endpoint:
-    metrics:
-      enabled: false
-    prometheus:
-      enabled: true
