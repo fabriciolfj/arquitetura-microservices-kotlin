@@ -1,12 +1,10 @@
 package com.github.fabriciolfj.conta.domain.service
 
-import com.github.fabriciolfj.conta.api.exceptions.BancoNotFoundException
 import com.github.fabriciolfj.conta.api.exceptions.ContaNotFoundException
 import com.github.fabriciolfj.conta.api.mapper.request.ContaRequest
 import com.github.fabriciolfj.conta.api.mapper.response.ContaResponse
 import com.github.fabriciolfj.conta.api.mapper.ContaMapper
 import com.github.fabriciolfj.conta.api.mapper.ExtratoMapper
-import com.github.fabriciolfj.conta.api.mapper.request.LimiteRequest
 import com.github.fabriciolfj.conta.domain.entity.Conta
 import com.github.fabriciolfj.conta.domain.repository.BancoRepository
 import com.github.fabriciolfj.conta.domain.repository.ContaRepository

@@ -1,2 +1,6 @@
 
 .idea/
+
+admin/.mvn/wrapper/
+
+*.deb

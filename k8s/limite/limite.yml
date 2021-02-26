@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: limite-service
+  name: limite
 spec:
   replicas: 2
   selector:
@@ -14,15 +14,18 @@ spec:
     spec:
       containers:
       - name: limite
-        image: fabricio211/limite-service
-        imagePullPolicy: IfNotPresent
+        image: fabricio211/limite-service:1.0.0
+        imagePullPolicy: Always
+        env:
+          - name: SPRING_CONFIG_LOCATION
+            value: file:/etc/config/application.yml
         resources:
           requests:
-            memory: 300Mi
-            cpu: "100m"
+            memory: 800Mi
+            cpu: "300m"
           limits:
-            memory: 300Mi
-            cpu: "500m"
+            memory: 800Mi
+            cpu: "300m"
         ports:
         - containerPort: 8080
         livenessProbe:
@@ -53,14 +56,17 @@ spec:
           configMap:
             name: config-limite
             items:
-              - key: application.yaml
-                path: application.yaml
+              - key: application.yml
+                path: application.yml
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: limites
+  name: limite
+  labels:
+    app: limite
+    spring-boot: "true"
 spec:
   type: NodePort
   ports:

@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin
+  template:
+    metadata:
+      labels:
+        app: admin
+    spec:
+      containers:
+        - name: admin
+          image: fabricio211/admin:1.0
+          imagePullPolicy: Always
+          env:
+            - name: SPRING_CONFIG_LOCATION
+              value: file:/etc/config/application.yml
+          resources:
+            requests:
+              memory: 800Mi
+              cpu: "300m"
+            limits:
+              memory: 800Mi
+              cpu: "300m"
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              port: 8080
+              scheme: HTTP
+              path: /actuator/info
+            initialDelaySeconds: 10
+            periodSeconds: 40
+            timeoutSeconds: 2
+            failureThreshold: 30
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+            successThreshold: 1
+          volumeMounts:
+            - mountPath: /etc/config
+              name: config-admin
+      volumes:
+        - name: config-admin
+          configMap:
+            name: config-admin
+            items:
+              - key: application.yml
+                path: application.yml
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin
+spec:
+  type: NodePort
+  selector:
+    app: admin
+  ports:
+    - port: 8080
+      targetPort: 8080

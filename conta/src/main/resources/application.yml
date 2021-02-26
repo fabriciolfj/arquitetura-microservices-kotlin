@@ -13,9 +13,11 @@ spring:
     username: root
     password: root
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 192.168.32.1:9092
     consumer:
       group-id: ${spring.application.name}
+      bootstrap-servers:
+        - ${spring.kafka.bootstrap-servers}
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       auto-offset-reset: earliest
@@ -24,6 +26,8 @@ spring:
       missing-topics-fatal: false
       ack-mode: MANUAL_IMMEDIATE
     producer:
+      bootstrap-servers:
+        - ${spring.kafka.bootstrap-servers}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
       retries: 3
@@ -47,3 +51,18 @@ spring:
 app.topic: limite-topic
 app.topic.uso: limite-uso
 app.topic.taxa: limite-taxa
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    metrics:
+      enabled: false
+    prometheus:
+      enabled: true
