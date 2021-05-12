@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   mysql:
-    image: mysql:5.7.21
+    image: mysql:latest
     command: --lower_case_table_names=1
     environment:
       MYSQL_DATABASE: "conta"
@@ -9,6 +9,13 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
     ports:
       - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uuser", "-ppwd", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - kafka-net
 
   mongodb:
     image: mongo:3.6.9
@@ -21,37 +28,26 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+
   zookeeper:
-    image: zookeeper:3.6.1
-    container_name: zookeeper
-    restart: always
+    image: debezium/zookeeper:1.1
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
     networks:
       - kafka-net
-    ports:
-      - "2181:2181"
-    volumes:
-      - /zookeeper:/bitnami/zookeeper
 
   kafka:
-    image: wurstmeister/kafka:2.12-2.5.0
-    container_name: kafka
-    restart: always
+    image: debezium/kafka:1.1
+    ports:
+      - 9092:9092
+    links:
+      - zookeeper
+    environment:
+      - ZOOKEEPER_CONNECT=zookeeper:2181
     networks:
       - kafka-net
-    ports:
-      - "9092:9092"
-    volumes:
-      - /kafka:/bitnami/kafka
-    environment:
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER_INTERNAL:PLAINTEXT,DOCKER_EXTERNAL:PLAINTEXT
-      KAFKA_LISTENERS: DOCKER_INTERNAL://:29092,DOCKER_EXTERNAL://:9092
-      KAFKA_ADVERTISED_LISTENERS: DOCKER_INTERNAL://kafka:29092,DOCKER_EXTERNAL://${DOCKER_HOST_IP:-192.168.32.1}:9092
-      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER_INTERNAL
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_BROKER_ID: 1
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    depends_on:
-      - zookeeper
 
   redis:
     image: redis:alpine

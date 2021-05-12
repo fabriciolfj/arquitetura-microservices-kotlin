@@ -4,10 +4,7 @@ import com.fabriciolfj.github.limites.api.dto.LimiteRequest
 import com.fabriciolfj.github.limites.api.dto.LimiteResponse
 import com.fabriciolfj.github.limites.domain.document.Limite
 import com.fabriciolfj.github.limites.domain.integracao.consumer.dto.AtualizarContaDTO
-import org.mapstruct.Mapper
-import org.mapstruct.Mapping
-import org.mapstruct.Mappings
-import org.mapstruct.ReportingPolicy
+import org.mapstruct.*
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 interface LimiteMapper {
@@ -29,4 +26,10 @@ interface LimiteMapper {
             Mapping(target = "valor", source = "valorDiario")
     )
     fun toResponse(limite: Limite): LimiteResponse
+
+    @Mappings(
+        Mapping(source = "conta", target = "contaComDigito"),
+        Mapping(source = "valorDiario", target = "valorDiario"),
+        Mapping(source = "qtdSaqueMensal", target = "quantidadeSaqueMensal"))
+    fun merge(dto: AtualizarContaDTO, @MappingTarget entity: Limite)
 }

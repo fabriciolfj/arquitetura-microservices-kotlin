@@ -7,10 +7,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.kafka.annotation.EnableKafka
-import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.transaction.annotation.EnableTransactionManagement
 
-@EnableScheduling
 @EnableKafka
 @SpringBootApplication
 @EnableTransactionManagement

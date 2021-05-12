@@ -15,13 +15,7 @@ class ValorSaqueServiceImpl : RegraTaxaService {
     private val logger = LoggerFactory.getLogger(ValorSaqueServiceImpl::class.java)
 
     override fun execute(usos: List<LimiteUsoDiario>, valor: BigDecimal, limite: Limite): Boolean {
-        var month = YearMonth.from(LocalDate.now())
-        var totalUso = usos
-            .filter { it.data.isAfter(month.atDay(1)) && it.data.isBefore(month.atEndOfMonth()) }
-            .sumOf { it.valor }
-
-        logger.info("limite: ${limite.valorDiario}, uso: $totalUso")
-        var total = totalUso.add(valor)
-        return total > limite.valorDiario
+        //implementar
+        return true
     }
 }

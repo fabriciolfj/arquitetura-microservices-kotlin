@@ -24,9 +24,15 @@ class LimiteService {
         limiteMapper.toEntity(limite)
             .apply { limiteRepository.save(this) }
 
-    fun create(atualizarContaDTO: AtualizarContaDTO) =
-        limiteMapper.toEntity(atualizarContaDTO)
-            .apply { limiteRepository.save(this) }
+    fun create(atualizarContaDTO: AtualizarContaDTO) {
+        findByLimite(atualizarContaDTO.conta)
+            .map {
+                limiteMapper.merge(atualizarContaDTO, it)
+            }.orElseGet {
+                limiteMapper.toEntity(atualizarContaDTO)
+                    .apply { limiteRepository.save(this) }
+            }
+    }
 
     fun findByLimiteResponse(conta: String): LimiteResponse {
         return this.findByLimite(conta)

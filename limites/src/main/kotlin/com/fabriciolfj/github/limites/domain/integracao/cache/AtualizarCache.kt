@@ -1,6 +1,6 @@
 package com.fabriciolfj.github.limites.domain.integracao.cache
 
-import com.fabriciolfj.github.limites.domain.integracao.cache.dto.ChequeEspecialCacheDTO
+import com.fabriciolfj.github.limites.domain.integracao.cache.dto.LimiteCacheDTO
 import com.fabriciolfj.github.limites.infrastructure.ConfigCache.Companion.CACHE_NAME
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,9 +18,9 @@ class AtualizarCache {
     @Qualifier(CACHE_NAME)
     private lateinit var cache: Cache
 
-    fun process(conta: String, valor: BigDecimal) {
+    fun process(conta: String, valor: BigDecimal, qtdSaque: Int) {
         logger.info("Atualizando o cache.")
-        var chequeEspecialCacheDTO = ChequeEspecialCacheDTO(valor)
-        cache.put(conta, chequeEspecialCacheDTO)
+        var limiteDto = LimiteCacheDTO(valor, qtdSaque)
+        cache.put(conta, limiteDto)
     }
 }

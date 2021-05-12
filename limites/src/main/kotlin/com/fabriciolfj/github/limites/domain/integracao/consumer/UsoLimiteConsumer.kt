@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
-import java.util.concurrent.CompletableFuture
+import java.util.concurrent.CompletableFuture.supplyAsync
 
 @Component
 class UsoLimiteConsumer {
@@ -19,7 +19,7 @@ class UsoLimiteConsumer {
 
     @KafkaListener(topics = ["\${app.topic.uso}"], properties = ["max.poll.interval.ms:30000"])
     fun processo(msg: String) {
-        CompletableFuture.supplyAsync {
+        supplyAsync {
             var usoContaDTO = objectMapper.readValue(msg, UsoContaDTO::class.java)
             limiteTaxaAgregatorService.execute(usoContaDTO)
         }.whenComplete{ unit: Unit, throwable: Throwable ->

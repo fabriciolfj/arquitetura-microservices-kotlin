@@ -20,9 +20,6 @@ class ContaService {
     private lateinit var contaRepository: ContaRepository
 
     @Autowired
-    private lateinit var bancoRepository: BancoRepository
-
-    @Autowired
     private lateinit var contaMapper: ContaMapper
 
     @Autowired
@@ -46,7 +43,7 @@ class ContaService {
             .orElseThrow { throw ContaNotFoundException("Conta não encontrada: $conta")}
     }
 
-    @Transactional("chainedKafkaTransactionManager", propagation = Propagation.REQUIRED)
+    @Transactional("chainedKafkaTransactionManager")
     fun create(request: ContaRequest, banco: String) {
         var entity = bancoService.getBanco(banco)
         contaMapper.toEntity(request)

@@ -1,6 +1,6 @@
 package com.github.fabriciolfj.conta.infrastructure
 
-import com.github.fabriciolfj.conta.domain.integracao.cache.dto.ChequeEspecialCacheDTO
+import com.github.fabriciolfj.conta.domain.integracao.cache.dto.LimiteCacheDTO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties
@@ -57,7 +57,7 @@ class ConfigCache {
             )
             .serializeValuesWith(
                 RedisSerializationContext.SerializationPair
-                    .fromSerializer(Jackson2JsonRedisSerializer(ChequeEspecialCacheDTO::class.java))
+                    .fromSerializer(Jackson2JsonRedisSerializer(LimiteCacheDTO::class.java))
             )
     }
 
