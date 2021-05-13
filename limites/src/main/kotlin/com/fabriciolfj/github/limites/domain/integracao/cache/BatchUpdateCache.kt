@@ -34,7 +34,7 @@ class BatchUpdateCache {
         }
     }
     
-    @Scheduled(cron = "30 9 15 * ?", zone = "America/Sao_Paulo")
+    @Scheduled(cron = "30 9 15 * * ?", zone = "America/Sao_Paulo")
     fun batchMensal() {
         var (initPage, limites) = getLimitePageInit()
 

@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.fabriciolfj.github"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -33,6 +33,7 @@ dependencies {
 	implementation("org.mapstruct:mapstruct-jdk8:1.3.1.Final")
 	implementation("redis.clients:jedis:3.4.1")
 	implementation("org.projectlombok:lombok:1.18.16")
+	implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin")
 
 	kapt("org.mapstruct:mapstruct-processor:1.3.1.Final")
 

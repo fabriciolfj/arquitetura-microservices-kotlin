@@ -24,7 +24,7 @@ public class BatchUpdateCache {
     public void bathDiario() {
     }
     
-    @org.springframework.scheduling.annotation.Scheduled(cron = "30 9 15 * ?", zone = "America/Sao_Paulo")
+    @org.springframework.scheduling.annotation.Scheduled(cron = "30 9 15 * * ?", zone = "America/Sao_Paulo")
     public void batchMensal() {
     }
     

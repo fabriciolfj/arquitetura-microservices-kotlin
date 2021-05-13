@@ -3,3 +3,4 @@
 - Usa como base os endpoints expostos pelo spring boot actuator
 - Apenas permite monitaração, não possui recursos como criar novas intâncias ou reinicia-las.
 - subindo uma imagem docker pelo maven: mvn spring-boot:build-image
+- subindo uma imagem docker pelo gradlew: ./gradlew build bootBuildImage

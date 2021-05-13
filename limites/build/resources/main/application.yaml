@@ -3,6 +3,10 @@ server:
 spring:
   application:
     name: limite-service
+  main:
+    allow-bean-definition-overriding: true
+  zipkin:
+    base-url: http://localhost:9411
   cache:
     type: redis
   redis:
@@ -45,3 +49,10 @@ management:
       enabled: false
     prometheus:
       enabled: true
+
+opentracing:
+  jaeger:
+    udp-sender:
+      port: 6831
+      host: localhost
+    log-spans: true

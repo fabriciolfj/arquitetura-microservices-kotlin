@@ -9,17 +9,21 @@ data:
     spring:
       application:
         name: limite-service
+      main:
+        allow-bean-definition-overriding: true
+      zipkin:
+        base-url: http://192.168.49.1:9411
       cache:
         type: redis
       redis:
-        host: 192.168.32.1
+        host: redis
         port: 6379
       data:
         mongodb:
-          host: 192.168.32.1
+          host: mongodb
           port: 27017
       kafka:
-        bootstrap-servers: 192.168.32.1:9092
+        bootstrap-servers: kafka:9092
         consumer:
           group-id: ${spring.application.name}
           key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

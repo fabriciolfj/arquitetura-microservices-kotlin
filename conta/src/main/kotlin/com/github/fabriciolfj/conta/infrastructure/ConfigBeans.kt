@@ -8,6 +8,7 @@ import org.springframework.kafka.transaction.KafkaTransactionManager
 import org.springframework.orm.jpa.JpaTransactionManager
 import javax.persistence.EntityManagerFactory
 
+
 @Configuration
 class ConfigBeans {
 
