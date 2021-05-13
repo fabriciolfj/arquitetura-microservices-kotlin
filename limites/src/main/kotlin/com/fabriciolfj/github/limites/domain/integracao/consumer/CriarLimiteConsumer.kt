@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.concurrent.CompletableFuture.supplyAsync
 
 @Component
-class AtualizarContaConsumer {
+class CriarLimiteConsumer {
 
-    private val logger = LoggerFactory.getLogger(AtualizarContaConsumer::class.java)
+    private val logger = LoggerFactory.getLogger(CriarLimiteConsumer::class.java)
 
     @Autowired
     private lateinit var limiteService: LimiteService
