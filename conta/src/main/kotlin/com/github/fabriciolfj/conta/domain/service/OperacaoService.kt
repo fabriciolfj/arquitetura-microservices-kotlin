@@ -28,7 +28,7 @@ class OperacaoService {
         extratoService.getUltimoExtratoECriaNovo(conta, request.valor, tipo).map {
                 val usoContaDTO = usoContaDTO(conta, tipo, request, it)
                 executarTransacoes(usoContaDTO)
-            extratoService.saveExtrato(it)
+                extratoService.saveExtrato(it)
             }
             .orElseThrow { throw ExtratoNotFoundException("Extrato nao encontrado para conta $conta") }
     }

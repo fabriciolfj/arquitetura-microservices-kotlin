@@ -1,0 +1,6 @@
+com/fabriciolfj/github/limites/api/mapper/LimiteMapperImpl.java
+ com.fabriciolfj.github.limites.api.mapper.LimiteMapperImpl
+com/fabriciolfj/github/limites/domain/integracao/entity/LimiteUsoDiarioMapperImpl.java
+ com.fabriciolfj.github.limites.domain.integracao.entity.LimiteUsoDiarioMapperImpl
+com/fabriciolfj/github/limites/domain/integracao/entity/LimiteUsoDiarioMapperImpl_.java
+ com.fabriciolfj.github.limites.domain.integracao.entity.LimiteUsoDiarioMapperImpl_

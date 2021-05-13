@@ -1,4 +1,4 @@
-package com.fabriciolfj.github.limites.domain.service
+package com.fabriciolfj.github.limites.domain.service.limite
 
 import com.fabriciolfj.github.limites.domain.document.Limite
 import com.fabriciolfj.github.limites.domain.integracao.consumer.dto.UsoContaDTO
@@ -23,16 +23,20 @@ class LimiteTaxaAgregatorService {
             .map {
                 createLimiteUso(usoContaDTO, it)
                 executeCobrancataxa(it, usoContaDTO)
+                atualizarUsoValorCache(usoContaDTO)
             }
     }
 
     private fun executeCobrancataxa(it: Limite, usoContaDTO: UsoContaDTO) {
-        cobrarTaxaService.execute(it, usoContaDTO, limiteUsoDiarioService.findUsosByLimite(it.id))
+        cobrarTaxaService.execute(it, usoContaDTO, limiteUsoDiarioService.findUsosByLimite(it.id!!))
     }
 
     private fun createLimiteUso(usoContaDTO: UsoContaDTO, it: Limite) {
         limiteUsoDiarioService.salvar(usoContaDTO, it)
     }
 
+    private fun atualizarUsoValorCache(usoContaDTO: UsoContaDTO) {
+        limiteUsoDiarioService.atualizarLimiteNoCache(usoContaDTO.conta, usoContaDTO.valor)
+    }
 
 }

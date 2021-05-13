@@ -7,4 +7,5 @@ import java.util.*
 interface LimiteRepository : MongoRepository<Limite, String> {
 
     fun findByContaComDigito(conta: String) : Optional<Limite>
+
 }

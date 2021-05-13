@@ -2,7 +2,7 @@ package com.fabriciolfj.github.limites.domain.integracao.consumer
 
 import com.fabriciolfj.github.limites.api.exceptions.LimiteValorExcedidoException
 import com.fabriciolfj.github.limites.domain.integracao.consumer.dto.UsoContaDTO
-import com.fabriciolfj.github.limites.domain.service.LimiteTaxaAgregatorService
+import com.fabriciolfj.github.limites.domain.service.limite.LimiteTaxaAgregatorService
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.kafka.annotation.KafkaListener

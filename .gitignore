@@ -4,3 +4,21 @@
 admin/.mvn/wrapper/
 
 *.deb
+
+limites/.gradle/6.7.1/executionHistory/
+
+limites/.gradle/6.7.1/fileChanges/
+
+limites/.gradle/6.8/fileHashes/
+
+limites/.gradle/6.7.1/fileHashes/
+
+*.bin
+
+*.lock
+
+limites/.gradle/buildOutputCleanup/
+
+limites/build/classes/java/main/com/fabriciolfj/github/limites/api/mapper/
+
+*.class

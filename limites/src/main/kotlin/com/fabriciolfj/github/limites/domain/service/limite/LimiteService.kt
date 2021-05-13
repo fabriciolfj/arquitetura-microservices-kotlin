@@ -6,7 +6,10 @@ import com.fabriciolfj.github.limites.api.mapper.LimiteMapper
 import com.fabriciolfj.github.limites.domain.document.Limite
 import com.fabriciolfj.github.limites.domain.integracao.consumer.dto.AtualizarContaDTO
 import com.fabriciolfj.github.limites.domain.repository.LimiteRepository
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
 import java.util.*
@@ -20,6 +23,12 @@ class LimiteService {
     @Autowired
     private lateinit var limiteMapper: LimiteMapper
 
+    val logger = LoggerFactory.getLogger(LimiteService::class.java)
+
+    fun findAll(page: Pageable): Page<Limite> {
+        return limiteRepository.findAll(page)
+    }
+
     fun create(limite: LimiteRequest) =
         limiteMapper.toEntity(limite)
             .apply { limiteRepository.save(this) }
@@ -30,7 +39,10 @@ class LimiteService {
                 limiteMapper.merge(atualizarContaDTO, it)
             }.orElseGet {
                 limiteMapper.toEntity(atualizarContaDTO)
-                    .apply { limiteRepository.save(this) }
+                    .apply {
+                        logger.info("Salvando o limite: $this")
+                        limiteRepository.save(this)
+                    }
             }
     }
 
@@ -41,6 +53,7 @@ class LimiteService {
     }
 
     fun findByLimite(conta: String) : Optional<Limite> {
-        return limiteRepository.findByContaComDigito(conta);
+        var limite = limiteRepository.findByContaComDigito(conta);
+        return limite;
     }
 }
