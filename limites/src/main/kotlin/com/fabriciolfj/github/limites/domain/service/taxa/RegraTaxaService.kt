@@ -6,5 +6,5 @@ import java.math.BigDecimal
 
 interface RegraTaxaService {
 
-    fun execute(usos: List<LimiteUsoDiario>, valor: BigDecimal, limite: Limite) : Boolean
+    fun execute(usos: List<LimiteUsoDiario>, limite: Limite) : Boolean
 }

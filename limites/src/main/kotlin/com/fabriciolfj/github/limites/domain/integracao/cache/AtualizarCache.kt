@@ -23,8 +23,11 @@ class AtualizarCache {
 
     fun process(conta: String, valor: BigDecimal, qtdSaque: Int) {
         logger.info("Atualizando o cache.")
-        var limiteDto = LimiteCacheDTO(valor, qtdSaque)
-        cache.put(conta, limiteDto)
+        LimiteCacheDTO(valor, qtdSaque)
+            .apply {
+                cache.put(conta, this)
+                logger.info("Cache atualizado: $this")
+            }
     }
 
     fun resetValorSaqueDiario(conta: String, valor: BigDecimal) {
@@ -41,8 +44,9 @@ class AtualizarCache {
         ofNullable(getCache(conta) )
             .map {
                 it.limite = it.limite.subtract(valor)
+                logger.info("limite atualizado: $it")
+                cache.put(conta, it)
             }
-            .map { cache.put(conta, it) }
             .orElseThrow { throw LimiteUsoUpdateException("Falha ao atualizar o uso do limite no cache. Conta $conta e valor $valor") }
     }
 

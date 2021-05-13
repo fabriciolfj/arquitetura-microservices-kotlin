@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: limite
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: limite
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: limite
-        image: fabricio211/limite-service:2.0.0
+        image: fabricio211/limite-service:5.0.0
         imagePullPolicy: Always
         env:
           - name: SPRING_CONFIG_LOCATION

@@ -21,7 +21,7 @@ class BatchUpdateCache {
 
     val SIZE = 2
 
-    @Scheduled(cron = "0 53 21 * * ?", zone = "America/Sao_Paulo")
+    //@Scheduled(cron = "0 53 21 * * ?", zone = "America/Sao_Paulo")
     fun bathDiario() {
         var (initPage, limites) = getLimitePageInit()
 
@@ -34,7 +34,7 @@ class BatchUpdateCache {
         }
     }
     
-    @Scheduled(cron = "30 9 15 * * ?", zone = "America/Sao_Paulo")
+    //@Scheduled(cron = "30 9 15 * * ?", zone = "America/Sao_Paulo")
     fun batchMensal() {
         var (initPage, limites) = getLimitePageInit()
 

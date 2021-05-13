@@ -10,16 +10,20 @@ data:
                       redis:
                         host: redis
                         port: 6379
+                      main:
+                        allow-bean-definition-overriding: true
+                      zipkin:
+                        base-url: http://192.168.49.1:9411
                       datasource:
                         hikari:
                           maximum-pool-size: 5
                           minimum-idle: 3
                           idle-timeout: 10000
-                        url: jdbc:mysql://mysql/conta
+                        url: jdbc:mysql://mysql/conta?createDatabaseIfNotExist=true&serverTimezone=UTC
                         username: root
                         password: root
                       kafka:
-                        bootstrap-servers: kafka:9092
+                        bootstrap-servers: 192.168.49.1:9092
                         consumer:
                           group-id: ${spring.application.name}
                           key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

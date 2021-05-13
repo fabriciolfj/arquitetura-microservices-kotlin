@@ -23,7 +23,7 @@ data:
           host: mongodb
           port: 27017
       kafka:
-        bootstrap-servers: kafka:9092
+        bootstrap-servers: 192.168.49.1:9092
         consumer:
           group-id: ${spring.application.name}
           key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -31,8 +31,7 @@ data:
           auto-offset-reset: earliest
           enable-auto-commit: false
         listener:
-          missing-topics-fatal: false
-          ack-mode: MANUAL_IMMEDIATE
+          missing-topics-fatal: true
     logging:
       level:
         org.springframework.web: DEBUG

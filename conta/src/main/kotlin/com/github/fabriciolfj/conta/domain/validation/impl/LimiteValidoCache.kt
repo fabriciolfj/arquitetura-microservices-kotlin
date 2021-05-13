@@ -19,7 +19,7 @@ class LimiteValidoCache : MovimentacaoValidation {
     override fun executar(valor: BigDecimal, conta: String) {
         val cache = limiteCache.getCache(conta)
 
-        if (cache.limite == BigDecimal.ZERO && valor > cache.limite) {
+        if (valor > cache.limite) {
             throw LimiteValorExcedidoException("Valor de saque excedido. Valor: $valor Limite: ${cache.limite} Conta: $conta" )
         }
     }
