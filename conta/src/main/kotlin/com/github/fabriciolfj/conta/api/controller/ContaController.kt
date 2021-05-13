@@ -6,6 +6,7 @@ import com.github.fabriciolfj.conta.domain.service.ContaService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/contas")
@@ -16,8 +17,8 @@ class ContaController {
 
     @PostMapping("/{banco}")
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody request: ContaRequest, @PathVariable("banco") banco: String) {
-        contaService.create(request, banco)
+    fun create(@Valid @RequestBody request: ContaRequest, @PathVariable("banco") banco: String) {
+        contaService.processCreation(request, banco)
     }
 
     @GetMapping

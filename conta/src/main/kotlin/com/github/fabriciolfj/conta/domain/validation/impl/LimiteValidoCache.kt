@@ -1,6 +1,6 @@
 package com.github.fabriciolfj.conta.domain.validation.impl
 
-import com.github.fabriciolfj.conta.api.exceptions.LimiteValorExcedidoExcetpion
+import com.github.fabriciolfj.conta.api.exceptions.LimiteValorExcedidoException
 import com.github.fabriciolfj.conta.domain.integracao.cache.LimiteCacheIntegracao
 import com.github.fabriciolfj.conta.domain.validation.MovimentacaoValidation
 import org.slf4j.LoggerFactory
@@ -20,7 +20,7 @@ class LimiteValidoCache : MovimentacaoValidation {
         val cache = limiteCache.getCache(conta)
 
         if (cache.limite == BigDecimal.ZERO && valor > cache.limite) {
-            throw LimiteValorExcedidoExcetpion("Valor de saque excedido. Valor: $valor Limite: ${cache.limite} Conta: $conta" )
+            throw LimiteValorExcedidoException("Valor de saque excedido. Valor: $valor Limite: ${cache.limite} Conta: $conta" )
         }
     }
 }

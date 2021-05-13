@@ -1,5 +1,6 @@
 package com.github.fabriciolfj.conta.domain.service
 
+import com.github.fabriciolfj.conta.api.exceptions.ContaExistsException
 import com.github.fabriciolfj.conta.api.exceptions.ContaNotFoundException
 import com.github.fabriciolfj.conta.api.mapper.request.ContaRequest
 import com.github.fabriciolfj.conta.api.mapper.response.ContaResponse
@@ -44,10 +45,18 @@ class ContaService {
     }
 
     @Transactional("chainedKafkaTransactionManager")
-    fun create(request: ContaRequest, banco: String) {
-        var entity = bancoService.getBanco(banco)
+    fun processCreation(request: ContaRequest, banco: String) {
+        if (contaRepository.findByNumero(request.numero).isPresent) {
+            throw ContaExistsException("Ja existe um cadastro para conta ${request.numero}")
+        }
+
+        create(request, banco)
+    }
+
+    private fun create(request: ContaRequest, banco: String) {
         contaMapper.toEntity(request)
             .apply {
+                var entity = bancoService.getBanco(banco)
                 this.banco = entity
                 this.extratos = listOf(extratoMapper.toEntity(request.saldo, this))
             }.apply {

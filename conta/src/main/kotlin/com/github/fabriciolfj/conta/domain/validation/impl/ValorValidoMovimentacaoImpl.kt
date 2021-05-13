@@ -1,6 +1,6 @@
 package com.github.fabriciolfj.conta.domain.validation.impl
 
-import com.github.fabriciolfj.conta.api.exceptions.ValorInvalidoExcetpion
+import com.github.fabriciolfj.conta.api.exceptions.ValorInvalidoException
 import com.github.fabriciolfj.conta.domain.validation.MovimentacaoValidation
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
@@ -13,6 +13,6 @@ class ValorValidoMovimentacaoImpl : MovimentacaoValidation {
             return
         }
 
-        throw ValorInvalidoExcetpion("Valor do movimentado inferior ou igual a zero para a conta $conta")
+        throw ValorInvalidoException("Valor do movimentado inferior ou igual a zero para a conta $conta")
     }
 }
