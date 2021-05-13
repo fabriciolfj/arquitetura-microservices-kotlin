@@ -20,7 +20,7 @@ public class BatchUpdateCache {
         return 0;
     }
     
-    @org.springframework.scheduling.annotation.Scheduled(fixedDelay = 1000L)
+    @org.springframework.scheduling.annotation.Scheduled(cron = "0 53 21 * * ?", zone = "America/Sao_Paulo")
     public void batch() {
     }
     

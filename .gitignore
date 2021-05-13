@@ -22,3 +22,5 @@ limites/.gradle/buildOutputCleanup/
 limites/build/classes/java/main/com/fabriciolfj/github/limites/api/mapper/
 
 *.class
+
+limites/build/generated/source/kapt/main/com/fabriciolfj/github/limites/domain/integracao/entity/LimiteUsoDiarioMapperImpl_.java

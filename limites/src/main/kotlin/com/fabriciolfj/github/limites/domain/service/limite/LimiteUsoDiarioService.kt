@@ -30,6 +30,6 @@ class LimiteUsoDiarioService {
     }
 
     fun atualizarLimiteNoCache(conta: String, valor: BigDecimal) {
-        atualizarCache.updateValor(conta, valor)
+        atualizarCache.updateUsoValor(conta, valor)
     }
 }

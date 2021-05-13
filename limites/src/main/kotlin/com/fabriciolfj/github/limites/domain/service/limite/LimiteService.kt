@@ -37,6 +37,7 @@ class LimiteService {
         findByLimite(atualizarContaDTO.conta)
             .map {
                 limiteMapper.merge(atualizarContaDTO, it)
+                limiteRepository.save(it)
             }.orElseGet {
                 limiteMapper.toEntity(atualizarContaDTO)
                     .apply {

@@ -27,14 +27,28 @@ class AtualizarCache {
         cache.put(conta, limiteDto)
     }
 
-    fun updateValor(conta: String, valor: BigDecimal) {
-        var value = cache.get(conta)
-        ofNullable(value)
-            .map { it.get() as LimiteCacheDTO }
+    fun resetValorSaqueDiario(conta: String, valor: BigDecimal) {
+        ofNullable(getCache(conta))
+            .map {
+                it.limite = valor
+                cache.put(conta, it)
+            }.orElseThrow {
+                throw LimiteUsoUpdateException("Falha ao resetar o limite diario. Conta: $conta, Valor: $valor")
+            }
+    }
+
+    fun updateUsoValor(conta: String, valor: BigDecimal) {
+        ofNullable(getCache(conta) )
             .map {
                 it.limite = it.limite.subtract(valor)
             }
             .map { cache.put(conta, it) }
             .orElseThrow { throw LimiteUsoUpdateException("Falha ao atualizar o uso do limite no cache. Conta $conta e valor $valor") }
+    }
+
+    private fun getCache(conta: String) : LimiteCacheDTO {
+        return ofNullable(cache.get(conta))
+            .map { it.get() as LimiteCacheDTO }
+            .orElseThrow { throw LimiteUsoUpdateException("Falha ao atualizar o uso do limite no cache. Conta $conta") }
     }
 }

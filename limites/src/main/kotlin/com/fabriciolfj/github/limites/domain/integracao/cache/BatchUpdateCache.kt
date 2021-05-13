@@ -22,20 +22,50 @@ class BatchUpdateCache {
     val SIZE = 2
 
     @Scheduled(cron = "0 53 21 * * ?", zone = "America/Sao_Paulo")
-    fun batch() {
-        var initPage = 1
-        var page = PageRequest.of(initPage, SIZE)
-        var limites = limiteService.findAll(page)
-        
+    fun bathDiario() {
+        var (initPage, limites) = getLimitePageInit()
+
+        while (limites.totalPages >= initPage) {
+            executeReset(limites.content)
+
+            val pair = getProximoLimitePage(limites, initPage)
+            initPage = pair.first
+            limites = pair.second
+        }
+    }
+    
+    @Scheduled(cron = "30 9 15 * ?", zone = "America/Sao_Paulo")
+    fun batchMensal() {
+        var (initPage, limites) = getLimitePageInit()
+
         while (limites.totalPages >= initPage) {
             execute(limites.content)
 
-            if (limites.totalPages >= initPage) {
-                initPage++
-                var page = PageRequest.of(initPage, SIZE)
-                limites = limiteService.findAll(page)
-            }
+            val pair = getProximoLimitePage(limites, initPage)
+            initPage = pair.first
+            limites = pair.second
         }
+    }
+
+    private fun getProximoLimitePage(limites: Page<Limite>, initPage: Int): Pair<Int, Page<Limite>> {
+        var limiteReturn = limites
+        var initPageReturn = initPage
+
+        if (limiteReturn.totalPages >= initPageReturn) {
+            initPageReturn++
+            var page = PageRequest.of(initPageReturn, SIZE)
+            limiteReturn = limiteService.findAll(page)
+        }
+
+        return Pair(initPageReturn, limiteReturn)
+    }
+
+    private fun getLimitePageInit(): Pair<Int, Page<Limite>> {
+        var initPage = 1
+        var page = PageRequest.of(initPage, SIZE)
+
+        var limites = limiteService.findAll(page)
+        return Pair(initPage, limites)
     }
 
     private fun execute(limites: List<Limite>) {
@@ -44,6 +74,15 @@ class BatchUpdateCache {
             .forEach {
                 logger.info("limite: $it")
                 atualizarCache.process(it.contaComDigito, it.valorDiario, it.quantidadeSaqueMensal)
+            }
+    }
+
+    private fun executeReset(limites: List<Limite>) {
+        limites
+            .stream()
+            .forEach {
+                logger.info("limite: $it")
+                atualizarCache.resetValorSaqueDiario(it.contaComDigito, it.valorDiario)
             }
     }
 }
