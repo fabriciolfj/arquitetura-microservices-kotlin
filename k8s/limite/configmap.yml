@@ -12,7 +12,7 @@ data:
       main:
         allow-bean-definition-overriding: true
       zipkin:
-        base-url: http://192.168.49.1:9411
+        base-url: http://192.168.0.113:9411
       cache:
         type: redis
       redis:
@@ -23,15 +23,15 @@ data:
           host: mongodb
           port: 27017
       kafka:
-        bootstrap-servers: 192.168.49.1:9092
+        bootstrap-servers: kafka:9092
         consumer:
           group-id: ${spring.application.name}
           key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
           value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
           auto-offset-reset: earliest
-          enable-auto-commit: false
+          enable-auto-commit: true
         listener:
-          missing-topics-fatal: true
+          missing-topics-fatal: false
     logging:
       level:
         org.springframework.web: DEBUG
