@@ -3,10 +3,10 @@ package com.github.fabriciolfj.conta
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
+//@SpringBootTest
 class ContaApplicationTests {
 
-	@Test
+	//@Test
 	fun contextLoads() {
 	}
 
