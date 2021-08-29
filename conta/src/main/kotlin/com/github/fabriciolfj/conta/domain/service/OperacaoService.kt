@@ -25,10 +25,10 @@ class OperacaoService {
     @Transactional("chainedKafkaTransactionManager")
     fun executarOperacao(request: OperacaoRequest, conta: String) {
         var tipo = TipoTransacao.toEnum(request.tipo)
-        extratoService.getUltimoExtratoECriaNovo(conta, request.valor, tipo).map {
+        extratoService.criarExtrato(conta, request.valor, tipo).map {
                 val usoContaDTO = usoContaDTO(conta, tipo, request, it)
-                executarTransacoes(usoContaDTO)
                 extratoService.saveExtrato(it)
+                executarTransacoes(usoContaDTO)
             }
             .orElseThrow { throw ExtratoNotFoundException("Extrato nao encontrado para conta $conta") }
     }

@@ -29,14 +29,14 @@ class ExtratoService {
 
     @Transactional("chainedKafkaTransactionManager")
     fun updateValorUltimoExtrato(conta: String, valor: BigDecimal, tipo: TipoTransacao) {
-        getUltimoExtratoECriaNovo(conta, valor, tipo)
+        criarExtrato(conta, valor, tipo)
             .map {
                 logger.info("Atualizando o extrato: $it")
                 extratoRepository.save(it)
             }
     }
 
-    fun getUltimoExtratoECriaNovo(conta: String, valor: BigDecimal, tipo: TipoTransacao): Optional<Extrato> =
+    fun criarExtrato(conta: String, valor: BigDecimal, tipo: TipoTransacao): Optional<Extrato> =
         extratoRepository.findByLastExtrato(conta)
             .map {
                 logger.info("Ultimo extrato: $it")

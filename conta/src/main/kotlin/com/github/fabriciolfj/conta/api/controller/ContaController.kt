@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/contas")
+@RequestMapping("/api/v1/contas")
 class ContaController {
 
     @Autowired

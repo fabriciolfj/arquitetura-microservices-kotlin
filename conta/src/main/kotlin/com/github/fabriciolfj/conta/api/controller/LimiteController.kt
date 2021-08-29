@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/limites")
+@RequestMapping("/api/v1/limites")
 class LimiteController {
 
     @Autowired
