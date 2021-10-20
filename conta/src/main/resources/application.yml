@@ -23,7 +23,7 @@ spring:
       auto-offset-reset: earliest
       enable-auto-commit: false
       fetch-min-size: 65536
-      isolation-level: read_committed
+      isolation-level: read_committed #consumira apenas transacoes confirmadas, ou seja, dp que o offset for atualizado pelo produtor
     listener:
       missing-topics-fatal: false
       ack-mode: MANUAL_IMMEDIATE
