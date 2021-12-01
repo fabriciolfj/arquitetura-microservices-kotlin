@@ -4,61 +4,61 @@ metadata:
   name: config-conta
 data:
   application.yml: |-
-                    spring:
-                      application:
-                        name: conta-service
-                      redis:
-                        host: 192.168.32.1
-                        port: 6379
-                      datasource:
-                        hikari:
-                          maximum-pool-size: 5
-                          minimum-idle: 3
-                          idle-timeout: 10000
-                        url: jdbc:mysql://192.168.32.1:3306/conta
-                        username: root
-                        password: root
-                      kafka:
-                        bootstrap-servers: 192.168.32.1:9092
-                        consumer:
-                          group-id: ${spring.application.name}
-                          key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-                          value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-                          auto-offset-reset: earliest
-                        producer:
-                          key-serializer: org.apache.kafka.common.serialization.StringSerializer
-                          value-serializer: org.apache.kafka.common.serialization.StringSerializer
-                          retries: 3
-                          client-id: ${spring.application.name}
-                          transaction-id-prefix: ted
-                          properties:
-                            transactional:
-                              id: ted
-                      flyway:
-                        locations:
-                          - classpath:db/migration
-                          - classpath:db/testdata
-                      jpa:
-                        properties:
-                          hibernate:
-                            dialect: org.hibernate.dialect.MySQL57Dialect
-                        show-sql: true
+    spring:
+      application:
+        name: conta-service
+      redis:
+        host: 192.168.0.115
+        port: 6379
+      datasource:
+        hikari:
+          maximum-pool-size: 5
+          minimum-idle: 3
+          idle-timeout: 10000
+        url: jdbc:mysql://192.168.0.115:3306/conta
+        username: root
+        password: root
+      kafka:
+        bootstrap-servers: 192.168.0.115:9092
+        consumer:
+          group-id: ${spring.application.name}
+          key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          auto-offset-reset: earliest
+        producer:
+          key-serializer: org.apache.kafka.common.serialization.StringSerializer
+          value-serializer: org.apache.kafka.common.serialization.StringSerializer
+          retries: 3
+          client-id: ${spring.application.name}
+          transaction-id-prefix: ted
+          properties:
+            transactional:
+              id: ted
+      flyway:
+        locations:
+          - classpath:db/migration
+          - classpath:db/testdata
+      jpa:
+        properties:
+          hibernate:
+            dialect: org.hibernate.dialect.MySQL57Dialect
+        show-sql: true
 
-                    app.topic: limite-topic
-                    app.topic.uso: limite-uso
-                    app.topic.taxa: limite-taxa
-                    management:
-                      endpoints:
-                        web:
-                          exposure:
-                            include: "*"
-                      metrics:
-                        export:
-                          prometheus:
-                            enabled: true
-                      endpoint:
-                        metrics:
-                          enabled: false
-                        prometheus:
-                          enabled: true
+    app.topic: limite-topic
+    app.topic.uso: limite-uso
+    app.topic.taxa: limite-taxa
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: "*"
+      metrics:
+        export:
+          prometheus:
+           enabled: true
+      endpoint:
+        metrics:
+          enabled: false
+        prometheus:
+          enabled: true
 

@@ -12,14 +12,14 @@ data:
       cache:
         type: redis
       redis:
-        host: 192.168.32.1
+        host: 192.168.0.115
         port: 6379
       data:
         mongodb:
-          host: 192.168.32.1
+          host: 192.168.0.115
           port: 27017
       kafka:
-        bootstrap-servers: 192.168.32.1:9092
+        bootstrap-servers: 192.168.0.115:9092
         consumer:
           group-id: ${spring.application.name}
           key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
