@@ -6,7 +6,6 @@ plugins {
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("kapt") version "1.3.72"
-
 }
 
 group = "com.fabriciolfj.github"
@@ -31,8 +30,6 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
 	implementation("org.springframework.kafka:spring-kafka")
 	implementation("redis.clients:jedis:3.4.1")
-
-	kapt("org.mapstruct:mapstruct:1.5.1.Final")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.kafka:spring-kafka-test")

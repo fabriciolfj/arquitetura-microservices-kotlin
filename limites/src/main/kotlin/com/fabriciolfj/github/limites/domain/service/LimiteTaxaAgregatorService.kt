@@ -27,7 +27,7 @@ class LimiteTaxaAgregatorService {
     }
 
     private fun executeCobrancataxa(it: Limite, usoContaDTO: UsoContaDTO) {
-        cobrarTaxaService.execute(it, usoContaDTO, limiteUsoDiarioService.findUsosByLimite(it.id))
+        cobrarTaxaService.execute(it, usoContaDTO, limiteUsoDiarioService.findUsosByLimite(it.id!!))
     }
 
     private fun createLimiteUso(usoContaDTO: UsoContaDTO, it: Limite) {

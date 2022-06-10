@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 import java.math.BigDecimal
 
 @Document(collection = "limites")
-data class Limite (@Id var id: String,
+data class Limite (@Id var id: String?,
                    var contaComDigito: String,
                    var valorDiario: BigDecimal,
                    var quantidadeSaqueMensal: Int) {
