@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
 	id("org.springframework.boot") version "2.7.0"
-	id("io.spring.dependency-management") version "1.0.10.RELEASE"
+	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("kapt") version "1.3.72"
@@ -15,10 +15,10 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
 	mavenCentral()
-	maven { url = uri("https://repo.spring.io/milestone") }
 }
 
 extra["springCloudVersion"] = "2021.0.3"
+
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -30,11 +30,9 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
 	implementation("org.springframework.kafka:spring-kafka")
-	implementation("org.mapstruct:mapstruct-jdk8:1.3.1.Final")
 	implementation("redis.clients:jedis:3.4.1")
-	implementation("org.projectlombok:lombok:1.18.16")
 
-	kapt("org.mapstruct:mapstruct-processor:1.3.1.Final")
+	kapt("org.mapstruct:mapstruct:1.5.1.Final")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
@@ -49,7 +47,7 @@ dependencyManagement {
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "11"
+		jvmTarget = "17"
 	}
 }
 

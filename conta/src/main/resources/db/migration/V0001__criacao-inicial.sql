@@ -4,7 +4,7 @@ code varchar(10) not null,
 descricao varchar(50) not null,
 primary key (id),
 UNIQUE(code)
-)engine=InnoDB default charset=utf8;
+);
 
 create table conta(
 id bigint not null auto_increment,
@@ -14,7 +14,7 @@ cliente varchar(14),
 unique key unique_numero (numero),
 primary key (id),
 foreign key (banco_id) references banco (id)
-)engine=InnoDB default charset=utf8;
+);
 
 create table extrato (
 id bigint not null auto_increment,
@@ -25,4 +25,4 @@ operacao varchar(50) not null,
 valor numeric(15,4),
 foreign key (conta_id) references conta(id),
 primary key (id)
-)engine=InnoDB default charset=utf8;
+);
